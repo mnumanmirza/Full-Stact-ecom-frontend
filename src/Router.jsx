@@ -1,12 +1,13 @@
-import React from 'react'
-import './App.css'
+import { createBrowserRouter } from "react-router"
+import VideoListingCard from "./Components/VideoListingCard"
+import Loginpage from "./Components/Loginpage"
+import Registerpage from "./Components/Registerpage"
 // import Registerpage from './Components/Registerpage'
 // import Loginpage from './Components/Loginpage'
 // import SideBar from './Components/SideBar'
-import Header from './Components/Header'
+// import Header from './Components/Header'
 // import EmptyVideoPage from './Components/EmptyVideoPage'
 // import VideoListingCard from './Components/VideoListingCard'
-// import { Outlet } from 'react-router-dom'
 // import VideoListPage from './Components/VideoListPage'
 // import VideoDetailpage from './Components/VideoDetailpage'
 // import ChanelVideolist from './ChanelVideolist'
@@ -37,44 +38,23 @@ import Header from './Components/Header'
 
 
 
-
-function App() {
-  return (
-    <>
-    {/* <Registerpage/> */}
-    {/* <Loginpage/> */}
-   <Header/>
-   {/* <SideBar/>  */}
-   {/* <EmptyVideoPage/> */}
-   {/* <VideoListingCard/> */}
-   {/* <VideoListPage/> */}
-   {/* <VideoDetailpage/> */}
-   {/* <ChanelEmpty/videopg/> */}
-   {/* <ChanelVideolist/> */}
-   {/* <ChanelEmptyplaylist/> */}
-   {/* <ChanelPlaylistpg/> */}
-   {/* <ChanelPlaylistVideopg/> */}
-   {/* <ChanelEmptyTweetpg/> */}
-   {/* <ChanelTweetpage/> */}
-   {/* <EmpySubscribpg/> */}
-   {/* <ChanelSubscribeList/> */}
-   {/* <MyChanelEmptypg/> */}
-    {/* <UploadVideopopup/> */}
-    {/* <UploadingVideoPopup/> */}
-    {/* <UploadvideoSucessful/> */}
-    {/* <MychanelemptyTweetpg/> */}
-    {/* <Mychaneltweetpg/> */}
-    {/* <Editpersonalinfo/> */}
-    {/* <Editchanelinfopg/> */}
-    {/* <Changepasswordpg/> */}
-    {/* <AdminDashboardpg/> */}
-    {/* <EditDashbordvideopopup/> */}
-    {/* <DeletDashbordvideopopup/> */}
-    {/* <PricvacyPolicypg/> */}
-    {/* <TermsCondition/> */}
-    {/* <Outlet/> */}
-    </>
-  )
-}
-
-export default App
+export const router = createBrowserRouter([
+    {
+        path:'/',
+        Component:App,
+        children:[
+            {
+                path:'',
+                Component:VideoListingCard
+            },
+            {
+                path:'Loginpage',
+                Component:Loginpage
+            },
+            {
+                path:'Registerpage',
+                Component:Registerpage
+            },
+        ]
+    }
+])
