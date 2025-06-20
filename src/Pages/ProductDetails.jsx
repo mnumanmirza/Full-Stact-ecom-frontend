@@ -4,7 +4,7 @@ import SummaryApi from '../common/com'
 import { FaStar } from "react-icons/fa";
 import { FaStarHalf } from "react-icons/fa";
 import displayPKRCurrency from '../helper/displayCurrency';
-import CategoryWiseProductDisplay from '../components/CategoryWiseProductDisplay';
+import CategoryWiseProductDisplay from '../Components/CategoryWiseProductDisplay';
 import addToCart from '../helper/addToCart';
 import Context from '../context/context';
 
