@@ -1,78 +1,67 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './App.css'
-// import Registerpage from './Components/Registerpage'
-// import Loginpage from './Components/Loginpage'
-// import SideBar from './Components/SideBar'
+import { Outlet } from 'react-router-dom'
 import Header from './Components/Header'
-// import EmptyVideoPage from './Components/EmptyVideoPage'
-// import VideoListingCard from './Components/VideoListingCard'
-// import { Outlet } from 'react-router-dom'
-// import VideoListPage from './Components/VideoListPage'
-// import VideoDetailpage from './Components/VideoDetailpage'
-// import ChanelVideolist from './ChanelVideolist'
-// import ChanelEmptyvideopg from './Components/ChanelEmptyvideopg'
-// import ChanelEmptyplaylist from './Components/ChanelEmptyplaylist'
-// import ChanelPlaylistpg from './Components/ChanelPlaylistpg'
-// import ChanelPlaylistVideopg from './Components/ChanelPlaylistVideopg'
-// import ChanelEmptyTweetpg from './Components/ChanelEmptyTweetpg'
-// import ChanelTweetpage from './Components/ChanelTweetpage'
-// import EmpySubscribpg from './Components/EmpySubscribpg'
-// import ChanelSubscribeList from './Components/ChanelSubscribeList'
-// import MyChanelEmptypg from './Components/MyChanelEmptypg'
-// import UploadVideopopup from './Components/UploadVideopopup'
-// import UploadingVideoPopup from './Components/UploadingVideoPopup'
-// import UploadvideoSucessful from './Components/UploadvideoSucessful'
-// import MychanelemptyTweetpg from './Components/MuchanelemptyTweetpg'
-// import Mychaneltweetpg from './Components/Mychaneltweetpg'
-// import Editpersonalinfo from './Components/Editpersonalinfo'
-// import Editchanelinfopg from './Components/Editchanelinfopg'
-// import Changepasswordpg from './Components/Changepasswordpg'
-// import AdminDashboardpg from './Components/AdminDashboardpg'
-// import EditDashbordvideopopup from './Components/EditDashbordvideopopup'
-// import DeletDashbordvideopopup from './DeletDashbordvideopopup'
-// import PricvacyPolicypg from './Components/PricvacyPolicypg'
-// import TermsCondition from './Components/TermsCondition'
-// import ChanelPlaylistpg from './Components/ChanelPlaylistpg'
-// import Loginpage from './Components/Loginpage'
-
+import Footer from './Components/Footer'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from 'react';
+import context from './context/context';
+import { useDispatch } from 'react-redux';
+import SummaryApi from './common/com';
+import { setUserDetails } from './store/userSlice';
 
 
 
 function App() {
+  const dispatch = useDispatch()
+  const [cartProductCount,setCartProductCount] = useState(0)
+
+  const fetchUserDetails = async () => {
+    const dataResponse = await fetch(SummaryApi.current_user.url, {
+      method: SummaryApi.current_user.method,
+      credentials: 'include'
+    })
+
+    const dataApi = await dataResponse.json()
+
+    if (dataApi.success) {
+      dispatch(setUserDetails(dataApi.data))
+    }
+  }
+  const fetchUserAddToCart = async () => {
+    const dataResponse = await fetch(SummaryApi.addToCartProductCount.url, {
+      method: SummaryApi.addToCartProductCount.method,
+      credentials: 'include'
+    })
+
+    const dataApi = await dataResponse.json()
+    setCartProductCount(dataApi?.data?.count)
+  }
+
+  useEffect(() => {
+    fetchUserDetails()
+    /**user Details cart product */
+    fetchUserAddToCart()
+
+  }, [])
   return (
     <>
-    {/* <Registerpage/> */}
-    {/* <Loginpage/> */}
-   <Header/>
-   {/* <SideBar/>  */}
-   {/* <EmptyVideoPage/> */}
-   {/* <VideoListingCard/> */}
-   {/* <VideoListPage/> */}
-   {/* <VideoDetailpage/> */}
-   {/* <ChanelEmpty/videopg/> */}
-   {/* <ChanelVideolist/> */}
-   {/* <ChanelEmptyplaylist/> */}
-   {/* <ChanelPlaylistpg/> */}
-   {/* <ChanelPlaylistVideopg/> */}
-   {/* <ChanelEmptyTweetpg/> */}
-   {/* <ChanelTweetpage/> */}
-   {/* <EmpySubscribpg/> */}
-   {/* <ChanelSubscribeList/> */}
-   {/* <MyChanelEmptypg/> */}
-    {/* <UploadVideopopup/> */}
-    {/* <UploadingVideoPopup/> */}
-    {/* <UploadvideoSucessful/> */}
-    {/* <MychanelemptyTweetpg/> */}
-    {/* <Mychaneltweetpg/> */}
-    {/* <Editpersonalinfo/> */}
-    {/* <Editchanelinfopg/> */}
-    {/* <Changepasswordpg/> */}
-    {/* <AdminDashboardpg/> */}
-    {/* <EditDashbordvideopopup/> */}
-    {/* <DeletDashbordvideopopup/> */}
-    {/* <PricvacyPolicypg/> */}
-    {/* <TermsCondition/> */}
-    {/* <Outlet/> */}
+      <context.Provider value={{
+        fetchUserDetails,
+        /**user Details cart product */
+        cartProductCount,
+        fetchUserAddToCart
+
+      }}>
+        <ToastContainer  
+        position='top-center'/>
+        <Header />
+        <main className='min-h-[calc(100vh-120px)] pt-16'>
+          <Outlet />
+        </main>
+        <Footer />
+      </context.Provider>
     </>
   )
 }
