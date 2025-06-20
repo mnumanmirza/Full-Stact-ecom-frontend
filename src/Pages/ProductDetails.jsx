@@ -4,7 +4,7 @@ import SummaryApi from '../common/com'
 import { FaStar } from "react-icons/fa";
 import { FaStarHalf } from "react-icons/fa";
 import displayPKRCurrency from '../helper/displayCurrency';
-import CategroyWiseProductDisplay from '../components/CategroyWiseProductDisplay';
+import CategoryWiseProductDisplay from '../components/CategoryWiseProductDisplay';
 import addToCart from '../helper/addToCart';
 import Context from '../context/context';
 
@@ -221,7 +221,7 @@ const ProductDetails = () => {
 
       {
         data.category && (
-          <CategroyWiseProductDisplay category={data?.category} heading={"Recommended Product"}/>
+          <CategoryWiseProductDisplay category={data?.category} heading={"Recommended Product"}/>
         )
       }
      
