@@ -3,7 +3,7 @@ import loginIcons from '../assest/signin.gif'
 import { IoMdEye } from "react-icons/io";
 import { IoMdEyeOff } from "react-icons/io";
 import { Link, useNavigate } from 'react-router-dom';
-import Imagetobase64 from '../helper/Imagetobase64';
+import ImageTobase64 from '../helper/ImageTobase64';
 import SummaryApi from '../common/com';
 import { toast } from 'react-toastify';
 
@@ -34,7 +34,7 @@ const SignUp = () => {
     const handleUploadPic = async(e) =>{
       const file = e.target.files[0]
       
-      const imagePic = await Imagetobase64(file)
+      const imagePic = await ImageTobase64(file)
       
       setData((preve)=>{
         return{
